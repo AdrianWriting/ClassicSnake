@@ -8,16 +8,18 @@ public class Snake : MonoBehaviour
     public int SnakeBodySize;
     public List<Vector3> SnakeMovePositionList;
 
-    int interval = 1;
+    float interval = 0.2f;
     float nextTime = 0;
     int diary = 0;
+    int step_counter = -1;
 
     float alpha = 0;                                                    //angle; direction of snake moving
 
     void Update()
     {
-        if (Time.time >= nextTime)                                      //"1px step per 1sec" logic
+        if (Time.time >= nextTime)                                      //1px step per "interval" logic
         {
+            step_counter++;
             SnakeMovePositionList.Insert(0, transform.position);        //add snakes' coordinates on 1st position of the list
 
             if (SnakeMovePositionList.Count >= SnakeBodySize + 1)       //if snake does not grown in this turn, coordinates are remove immediately
@@ -35,41 +37,37 @@ public class Snake : MonoBehaviour
 
             transform.position += transform.forward;
             nextTime += interval;
-
-            Debug.Log("nextTime: " + nextTime);
-            Debug.Log("diary: " + diary);
-
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && (int)Time.time != diary)     //change direction of snake move && check if in this turn snake doesn't rotate
+        if (Input.GetKeyDown(KeyCode.A) && step_counter != diary)       //change direction of snake move && check if in this turn snake doesn't rotate
         {
             if (alpha != 90 && alpha != 270)                            //check if snake is not moving on Right or Left side
             {
-                diary = (int)Time.time;                                 //save the time[sec] of rotation
+                diary = step_counter;                                   //save the step when rotation has been taken
                 transform.localRotation = Quaternion.Euler(0, 270, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.D) && (int)Time.time != diary)
+        if (Input.GetKeyDown(KeyCode.D) && step_counter != diary)
         {
             if (alpha != 270 && alpha != 90)
             {
-                diary = (int)Time.time;
+                diary = step_counter;
                 transform.localRotation = Quaternion.Euler(0, 90, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.S) && (int)Time.time != diary)
+        if (Input.GetKeyDown(KeyCode.S) && step_counter != diary)
         {
             if (alpha != 0 && alpha != 180)
             {
-                diary = (int)Time.time;
+                diary = step_counter;
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.W) && (int)Time.time != diary)
+        if (Input.GetKeyDown(KeyCode.W) && step_counter != diary)
         {
             if (alpha != 180 && alpha != 0)
             {
-                diary = (int)Time.time;
+                diary = step_counter;
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
         }
