@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    public Apple apple;
     public int SnakeBodySize;
     public List<Vector3> SnakeMovePositionList;
 
@@ -37,6 +38,11 @@ public class Snake : MonoBehaviour
 
             transform.position += transform.forward;
             nextTime += interval;
+
+            if (Functions.ListContains(SnakeMovePositionList, transform.position))
+            {
+                Time.timeScale = 0;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.A) && step_counter != diary)       //change direction of snake move && check if in this turn snake doesn't rotate

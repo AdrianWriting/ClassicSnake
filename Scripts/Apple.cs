@@ -21,27 +21,11 @@ public class Apple : MonoBehaviour
     {
         pointsManager.AddPoint();
         snake.SnakeGrow();
-        int last_pos_x = Convert.ToInt32(transform.position.x);
+        int last_pos_x = Convert.ToInt32(transform.position.x);     //save info about last position, which hasn't been stored in SnakeMovePositionList (gap)
         int last_pos_z = Convert.ToInt32(transform.position.z);
         do
         {
-            transform.position = new Vector3(UnityEngine.Random.Range(-7, 7), 0, UnityEngine.Random.Range(-5, 5));
-        } while ((last_pos_x == transform.position.x && last_pos_z == transform.position.z) || ListContains(snake.SnakeMovePositionList, transform.position));
-    }
-
-    private bool ListContains(List<Vector3> hist_list, Vector3 new_pos)
-    {
-        int new_pos_x = Convert.ToInt32(new_pos.x);
-        int new_pos_z = Convert.ToInt32(new_pos.z);
-        for (int i = 0; i < hist_list.Count; i++)
-        {
-            int hist_list_x = Convert.ToInt32(hist_list[i].x);
-            int hist_list_z = Convert.ToInt32(hist_list[i].z);
-            if (hist_list_x == new_pos_x && hist_list_z == new_pos_z)
-            {
-                return true;
-            }
-        }
-        return false;
+            transform.position = new Vector3(UnityEngine.Random.Range(-9, 11), 0, UnityEngine.Random.Range(-5, 6));
+        } while ((last_pos_x == transform.position.x && last_pos_z == transform.position.z) || Functions.ListContains(snake.SnakeMovePositionList, transform.position));
     }
 }

@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using TMPro;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    private void Start()
-    {
-
-    }
+    public TextMeshProUGUI Lose_PopUp;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("You lose. :(");
+        //Functions.EndGame();
+        Lose_PopUp.gameObject.SetActive(true);
         Time.timeScale = 0;
     }
 }
