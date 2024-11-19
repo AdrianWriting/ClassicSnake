@@ -41,7 +41,7 @@ public class Snake : MonoBehaviour
 
             if (Functions.ListContains(SnakeMovePositionList, transform.position))
             {
-                Time.timeScale = 0;
+                Functions.EndGame();
             }
         }
 

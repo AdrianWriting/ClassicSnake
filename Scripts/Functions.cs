@@ -7,6 +7,20 @@ using UnityEngine;
 
 public class Functions : MonoBehaviour
 {
+    private static Functions instance;
+    public TextMeshProUGUI Lose_PopUp;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public static void EndGame()
+    {
+        instance.Lose_PopUp.gameObject.SetActive(true);
+        Time.timeScale = 0;
+    }
+
     public static bool ListContains(List<Vector3> hist_list, Vector3 new_pos)
     {
         int new_pos_x = Convert.ToInt32(new_pos.x);
