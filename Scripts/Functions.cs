@@ -19,6 +19,7 @@ public class Functions : MonoBehaviour
     {
         instance.Lose_PopUp.gameObject.SetActive(true);
         Time.timeScale = 0;
+        PointsManager.SavePoint();
     }
 
     public static bool ListContains(List<Vector3> hist_list, Vector3 new_pos)

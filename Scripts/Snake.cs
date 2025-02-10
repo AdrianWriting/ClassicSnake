@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
@@ -8,18 +10,32 @@ public class Snake : MonoBehaviour
     public Apple apple;
     public int SnakeBodySize;
     public List<Vector3> SnakeMovePositionList;
-
+    public static bool GameOn { get; set; }
+    
     float interval = 0.2f;
     float nextTime = 0;
     int diary = 0;
     int step_counter = -1;
-
     float alpha = 0;                                                    //angle; direction of snake moving
+
+    void Awake()
+    {
+        nextTime = Time.time + 0.4f;
+    }
 
     void Update()
     {
-        if (Time.time >= nextTime)                                      //1px step per "interval" logic
+        for (; Time.time >= nextTime;)                                  //1px step per "interval" logic
         {
+            nextTime += interval;
+
+            if (GameOn == false)
+            {
+                break;
+            }
+
+            // LEVELS: here interval increases per SnakeMovePositionList.Count can be implemented
+
             step_counter++;
             SnakeMovePositionList.Insert(0, transform.position);        //add snakes' coordinates on 1st position of the list
 
@@ -31,13 +47,13 @@ public class Snake : MonoBehaviour
             for (int i = 0; i < SnakeMovePositionList.Count; i++)
             {
                 var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                 cube.GetComponent<BoxCollider>().enabled = false;
                 cube.transform.localPosition = SnakeMovePositionList[i];
                 GameObject.Destroy(cube, interval);
             }
 
             transform.position += transform.forward;
-            nextTime += interval;
 
             if (Functions.ListContains(SnakeMovePositionList, transform.position))
             {
