@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour
     public int SnakeBodySize;
     public List<Vector3> SnakeMovePositionList;
     public static bool GameOn { get; set; }
+    public Material tail_material;
     
     float interval = 0.2f;
     float nextTime;
@@ -47,6 +48,7 @@ public class Snake : MonoBehaviour
             for (int i = 0; i < SnakeMovePositionList.Count; i++)
             {
                 var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.GetComponent<MeshRenderer>().material = tail_material;
                 cube.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                 cube.GetComponent<BoxCollider>().enabled = false;
                 cube.transform.localPosition = SnakeMovePositionList[i];

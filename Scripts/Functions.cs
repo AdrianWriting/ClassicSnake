@@ -18,9 +18,8 @@ public class Functions : MonoBehaviour
 
     public static void EndGame()
     {
-        instance.Lose_PopUp.text = "<mark=#000000aa>Score: \n" + PointsManager.point + "</mark>";
         PointsManager.SavePoint();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(3);
     }
 
     public static bool ListContains(List<Vector3> hist_list, Vector3 new_pos)
