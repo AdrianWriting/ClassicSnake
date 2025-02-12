@@ -26,5 +26,6 @@ public class PointsManager : MonoBehaviour
             PlayerPrefs.SetInt("topscore", point);
             PlayerPrefs.Save();
         }
+        point = 0;
     }
 }

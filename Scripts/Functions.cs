@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Functions : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class Functions : MonoBehaviour
 
     public static void EndGame()
     {
-        instance.Lose_PopUp.gameObject.SetActive(true);
-        Time.timeScale = 0;
+        instance.Lose_PopUp.text = "<mark=#000000aa>Score: \n" + PointsManager.point + "</mark>";
         PointsManager.SavePoint();
+        SceneManager.LoadScene(0);
     }
 
     public static bool ListContains(List<Vector3> hist_list, Vector3 new_pos)

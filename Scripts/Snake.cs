@@ -13,7 +13,7 @@ public class Snake : MonoBehaviour
     public static bool GameOn { get; set; }
     
     float interval = 0.2f;
-    float nextTime = 0;
+    float nextTime;
     int diary = 0;
     int step_counter = -1;
     float alpha = 0;                                                    //angle; direction of snake moving
@@ -38,7 +38,7 @@ public class Snake : MonoBehaviour
 
             step_counter++;
             SnakeMovePositionList.Insert(0, transform.position);        //add snakes' coordinates on 1st position of the list
-
+            
             if (SnakeMovePositionList.Count >= SnakeBodySize + 1)       //if snake does not grown in this turn, coordinates are remove immediately
             {
                 SnakeMovePositionList.RemoveAt(SnakeMovePositionList.Count - 1);
@@ -61,7 +61,8 @@ public class Snake : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && step_counter != diary)       //change direction of snake move && check if in this turn snake doesn't rotate
+        //change direction of snake move && check if in this turn snake doesn't rotate
+        if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow) && step_counter != diary)
         {
             if (alpha != 90 && alpha != 270)                            //check if snake is not moving on Right or Left side
             {
@@ -69,7 +70,8 @@ public class Snake : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, 270, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.D) && step_counter != diary)
+
+        if (Input.GetKeyDown(KeyCode.D) | Input.GetKeyDown(KeyCode.RightArrow) && step_counter != diary)
         {
             if (alpha != 270 && alpha != 90)
             {
@@ -77,7 +79,8 @@ public class Snake : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, 90, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.S) && step_counter != diary)
+
+        if (Input.GetKeyDown(KeyCode.S) | Input.GetKeyDown(KeyCode.DownArrow) && step_counter != diary)
         {
             if (alpha != 0 && alpha != 180)
             {
@@ -85,7 +88,8 @@ public class Snake : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.W) && step_counter != diary)
+
+        if (Input.GetKeyDown(KeyCode.W) | Input.GetKeyDown(KeyCode.UpArrow) && step_counter != diary)
         {
             if (alpha != 180 && alpha != 0)
             {
@@ -93,6 +97,7 @@ public class Snake : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
         }
+
         alpha = transform.rotation.eulerAngles[1];                      //read the angle of snakes' moving
     }
 
